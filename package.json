@@ -1,0 +1,8 @@
+{
+  "name": "syful-hoque-platform",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": { "build": "node build.mjs", "start": "node server.mjs", "check": "node verify.mjs" },
+  "engines": { "node": ">=22" }
+}
