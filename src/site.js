@@ -27,10 +27,39 @@ if(form){const requested=new URLSearchParams(location.search).get('service');con
  }
 }
 
+// The opening frame gets the same depth treatment: a quiet reveal, then a
+// measured camera drift as the visitor enters the decision-flow film.
+if(window.gsap&&window.ScrollTrigger&&!matchMedia('(max-width: 599px)').matches){
+ gsap.registerPlugin(ScrollTrigger);
+ const hero=$('.hero'), heroCopy=$('.hero-copy'), heroArt=$('.hero-art'), heroImage=$('.hero-image');
+ if(hero){gsap.from([heroCopy,heroArt],{autoAlpha:0,y:28,duration:1.15,stagger:.12,ease:'power3.out'});gsap.to(heroImage,{rotateY:-9,rotateX:3,x:22,scale:1.06,ease:'none',scrollTrigger:{trigger:hero,start:'top top',end:'bottom top',scrub:1.2}});gsap.to(heroCopy,{y:-42,ease:'none',scrollTrigger:{trigger:hero,start:'top top',end:'bottom top',scrub:1.2}});}
+}
+
 // One persistent set of 48 fragments. Coordinates are six semantic arrangements,
 // interpolated by scroll position; no perpetual animation or wheel interception.
-const film=$('.film');
+function initFilm(){const film=$('.film');
 if(film){const motion=matchMedia('(prefers-reduced-motion: reduce)'),compact=matchMedia('(max-width: 599px)');const world=$('.film-world'),nodes=$$('.fragment'),captions=$$('.film-caption'),rail=$$('[data-scene-jump]'),connections=$('.system-connections'),labels=$$('.system-label');let active=false,queued=false,visible=false,scene=-1;
+ // Desktop choreography uses GSAP + ScrollTrigger. The hand-authored rAF path below
+ // remains the progressive fallback for reduced motion, mobile and offline previews.
+ if(window.gsap&&window.ScrollTrigger&&!compact.matches&&innerHeight>=700){
+  gsap.registerPlugin(ScrollTrigger);film.classList.add('gsap-enhanced');
+  const seed=(i,s)=>{const x=Math.sin((i+1)*s)*43758.5453;return x-Math.floor(x)};
+  const pose=(s,i)=>{const col=i%8,row=Math.floor(i/8);if(s===0)return{x:(seed(i,12.19)-.5)*500,y:(seed(i,32.4)-.5)*330,z:(seed(i,76.3)-.5)*420,rX:seed(i,15)*180,rY:seed(i,18)*180,scale:.65+seed(i,8)*1.4,opacity:.22+seed(i,4.8)*.78};if(s===1)return{x:((i%3)-1)*150+(seed(i,5)-.5)*46,y:(Math.floor(i/3)-7.5)*17,z:((i%3)-1)*75,rX:0,rY:(i%3-1)*28,scale:.8,opacity:i>41?.12:.92};if(s===2)return{x:(col-3.5)*56,y:67-Math.exp(-(((col-3.5)/2.3)**2))*155+row*11,z:(row-2.5)*38,rX:0,rY:0,scale:1,opacity:.95};if(s===3){const branch=Math.floor(row/2)-1;return{x:(col-3.5)*59,y:branch*(col+1)*15,z:branch===0?88:-96-Math.abs(branch)*70,rX:0,rY:branch===0?0:45,scale:branch===0?1.1:.74,opacity:branch===0?1:.16};}if(s===4){const a=(i%6)*Math.PI/3,r=138+(Math.floor(i/6)-3.5)*3;return{x:Math.cos(a)*r,y:Math.sin(a)*r*.82,z:Math.sin(a)*22,rX:0,rY:(i%6)*60,scale:1,opacity:.94};}return{x:(col-3.5)*53,y:(row-2.5)*42,z:0,rX:0,rY:0,scale:.82,opacity:.78};};
+  const camera=[[-5,-12,0],[8,7,-40],[12,-16,35],[0,0,45],[-7,12,0],[0,0,0]];
+  const tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:film,start:'top top',end:'bottom bottom',scrub:1.15,anticipatePin:1,invalidateOnRefresh:true}});
+  gsap.set(nodes,{transformPerspective:900,transformOrigin:'center center'});nodes.forEach((node,i)=>gsap.set(node,pose(0,i)));gsap.set(world,{rotateX:camera[0][0],rotateY:camera[0][1],translateZ:camera[0][2]});gsap.set(captions,{autoAlpha:0,y:34});gsap.set(captions[0],{autoAlpha:1,y:0});
+  for(let s=0;s<5;s++){
+   const at=s;const next=s+1;
+   nodes.forEach((node,i)=>{const p=pose(next,i);tl.to(node,{x:p.x,y:p.y,z:p.z,rotateX:p.rX,rotateY:p.rY,scale:p.scale,autoAlpha:p.opacity,duration:1},at);});
+   const cam=camera[next];tl.to(world,{rotateX:cam[0],rotateY:cam[1],translateZ:cam[2],duration:1},at);
+   tl.to(captions[s],{autoAlpha:0,y:-34,duration:.18},at+.76).to(captions[next],{autoAlpha:1,y:0,duration:.24},at+.78);
+   tl.to(connections,{autoAlpha:next===3?1:0,duration:.28},at+.2);tl.to($('.causal-connections'),{autoAlpha:next===1?1:0,duration:.28},at+.2);tl.to($('.decision-connections'),{autoAlpha:next===2?1:0,duration:.28},at+.2);labels.forEach((label)=>tl.to(label,{autoAlpha:next===3?1:0,duration:.2},at+.3));
+  }
+  tl.eventCallback('onUpdate',()=>{const current=Math.min(5,Math.floor(tl.time()+.001));if(current!==scene){scene=current;rail.forEach((r,i)=>i===scene?r.setAttribute('aria-current','step'):r.removeAttribute('aria-current'));}});
+  rail.forEach(button=>button.addEventListener('click',()=>{const index=Number(button.dataset.sceneJump),st=tl.scrollTrigger;window.scrollTo({top:st.start+(st.end-st.start)*((index+.08)/6),behavior:'smooth'});}));
+  window.addEventListener('resize',()=>ScrollTrigger.refresh(),{passive:true});
+  return;
+ }
  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),lerp=(a,b,t)=>a+(b-a)*t,smooth=t=>t*t*(3-2*t);
  const rand=(i,seed)=>{const x=Math.sin((i+1)*seed)*43758.5453;return x-Math.floor(x);};
  function target(s,i){const col=i%8,row=Math.floor(i/8);if(s===0)return{x:(rand(i,12.19)-.5)*500,y:(rand(i,32.4)-.5)*330,z:(rand(i,76.3)-.5)*400,opacity:.35+rand(i,4.8)*.65,blur:rand(i,16.4)>0.78?1.5:0};
@@ -56,3 +85,5 @@ if(film){const motion=matchMedia('(prefers-reduced-motion: reduce)'),compact=mat
  rail.forEach(button=>button.addEventListener('click',()=>{const index=Number(button.dataset.sceneJump),header=$('.header').offsetHeight;const distance=film.offsetHeight-innerHeight+header;const y=scrollY+film.getBoundingClientRect().top-header+distance*((index+.08)/6);window.scrollTo({top:y,behavior:'smooth'});}));
  configure();
 }
+}
+initFilm();
