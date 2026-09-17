@@ -1,7 +1,7 @@
 import {readFile,writeFile,mkdir,copyFile,readdir} from 'node:fs/promises';
 import path from 'node:path';
 const data=JSON.parse(await readFile('content/portfolio.json','utf8'));
-const origin='https://syful-hoque-evidence-systems.ip3.chatgpt.site';
+const origin=process.env.SITE_ORIGIN||'https://syful-hoque-evidence-systems.ip3.chatgpt.site';
 const routes=[];
 const {person,practices,projects}=data;
 // Keep the imported record unchanged; reconcile publication wording here.

@@ -30,6 +30,12 @@ Content: `content/portfolio.json` retains the imported reference. `build.mjs` co
 
 After edits, build and verify. The checked-in public assets let the site reconstruct without downloading fonts or using an image generator. `prepare-fonts.mjs` is optional maintenance tooling, not a build dependency.
 
+## Portable deployment
+
+This repository is independent of ChatGPT Sites. Run `npm run build` and deploy `dist/` to any static host. Vercel can use the included `vercel.json`; Netlify can use `npm run build` with `dist` as the publish directory. Set the optional `SITE_ORIGIN` build variable to the deployed domain when canonical metadata should change.
+
+`EXPORT_MANIFEST.md`, `PORTABILITY.md` and `RELEASE-AUDIT.md` document the source export, platform boundary and release checks. `package-lock.json` is included even though the project has no third-party dependencies.
+
 ## Limits
 
 The hosting edition is private. This is a functioning professional website, not proof of commercial revenue or a guarantee of proposal awards. No checkout, analytics, CRM, newsletter subscription, file upload or backend lead storage is configured. The site states these behaviours honestly.
