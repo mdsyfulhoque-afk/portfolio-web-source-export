@@ -42,12 +42,12 @@ if(film){const motion=matchMedia('(prefers-reduced-motion: reduce)'),compact=mat
  // Desktop choreography uses GSAP + ScrollTrigger. The hand-authored rAF path below
  // remains the progressive fallback for reduced motion, mobile and offline previews.
  if(window.gsap&&window.ScrollTrigger&&!motion.matches&&!compact.matches&&innerHeight>=700){
-  gsap.registerPlugin(ScrollTrigger);film.classList.add('gsap-enhanced');
+  gsap.registerPlugin(ScrollTrigger);film.classList.add('gsap-enhanced','is-enhanced');
   const seed=(i,s)=>{const x=Math.sin((i+1)*s)*43758.5453;return x-Math.floor(x)};
   const pose=(s,i)=>{const col=i%8,row=Math.floor(i/8);if(s===0)return{x:(seed(i,12.19)-.5)*500,y:(seed(i,32.4)-.5)*330,z:(seed(i,76.3)-.5)*420,rX:seed(i,15)*180,rY:seed(i,18)*180,scale:.65+seed(i,8)*1.4,opacity:.22+seed(i,4.8)*.78};if(s===1)return{x:((i%3)-1)*150+(seed(i,5)-.5)*46,y:(Math.floor(i/3)-7.5)*17,z:((i%3)-1)*75,rX:0,rY:(i%3-1)*28,scale:.8,opacity:i>41?.12:.92};if(s===2)return{x:(col-3.5)*56,y:67-Math.exp(-(((col-3.5)/2.3)**2))*155+row*11,z:(row-2.5)*38,rX:0,rY:0,scale:1,opacity:.95};if(s===3){const branch=Math.floor(row/2)-1;return{x:(col-3.5)*59,y:branch*(col+1)*15,z:branch===0?88:-96-Math.abs(branch)*70,rX:0,rY:branch===0?0:45,scale:branch===0?1.1:.74,opacity:branch===0?1:.16};}if(s===4){const a=(i%6)*Math.PI/3,r=138+(Math.floor(i/6)-3.5)*3;return{x:Math.cos(a)*r,y:Math.sin(a)*r*.82,z:Math.sin(a)*22,rX:0,rY:(i%6)*60,scale:1,opacity:.94};}return{x:(col-3.5)*53,y:(row-2.5)*42,z:0,rX:0,rY:0,scale:.82,opacity:.78};};
   const camera=[[-5,-12,0],[8,7,-40],[12,-16,35],[0,0,45],[-7,12,0],[0,0,0]];
-  const tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:film,start:()=>`top top+=${$('.header').offsetHeight}px`,end:'bottom bottom',pin:$('.film-sticky'),pinSpacing:false,scrub:1.15,anticipatePin:1,invalidateOnRefresh:true}});
-  gsap.set(nodes,{transformPerspective:900,transformOrigin:'center center'});nodes.forEach((node,i)=>gsap.set(node,pose(0,i)));gsap.set(world,{rotateX:camera[0][0],rotateY:camera[0][1],translateZ:camera[0][2]});gsap.set(captions,{autoAlpha:0,y:34});gsap.set(captions[0],{autoAlpha:1,y:0});
+  const tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:film,start:'top top',end:'bottom bottom',pin:$('.film-sticky'),pinSpacing:false,scrub:1.15,anticipatePin:1,invalidateOnRefresh:true}});
+  gsap.set(nodes,{transformPerspective:900,transformOrigin:'center center'});nodes.forEach((node,i)=>{const p=pose(0,i);gsap.set(node,{x:p.x,y:p.y,z:p.z,rotateX:p.rX,rotateY:p.rY,scale:p.scale,autoAlpha:p.opacity});});gsap.set(world,{rotateX:camera[0][0],rotateY:camera[0][1],translateZ:camera[0][2]});gsap.set(captions,{autoAlpha:0,y:34});gsap.set(captions[0],{autoAlpha:1,y:0});
   for(let s=0;s<5;s++){
    const at=s;const next=s+1;
    nodes.forEach((node,i)=>{const p=pose(next,i);tl.to(node,{x:p.x,y:p.y,z:p.z,rotateX:p.rX,rotateY:p.rY,scale:p.scale,autoAlpha:p.opacity,duration:1},at);});
