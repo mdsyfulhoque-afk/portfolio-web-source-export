@@ -18,6 +18,7 @@ if((home.match(/data-scene="/g)||[]).length!==6)errors.push('Film must have six 
 if(!css.includes('.film:not(.is-enhanced)')||!css.includes('prefers-reduced-motion:reduce'))errors.push('Static/reduced-motion fallback missing');
 if(!js.includes("pin:$('.film-sticky'),pinSpacing:false")||!js.includes("trigger:film")||!js.includes('scrub:1.15'))errors.push('GSAP film pin/scrub choreography missing');
 if(!js.includes("film.classList.add('gsap-enhanced','is-enhanced')"))errors.push('GSAP film must bypass static presentation styles');
+if(!js.includes('Math.min(1,(index+.08)/tl.duration())'))errors.push('GSAP scene rail must navigate across the complete timeline');
 if(js.includes('gsap.set(node,pose(0,i))')||!js.includes('rotateX:p.rX')||!js.includes('rotateY:p.rY'))errors.push('Fragment rotations must be applied as valid 3D transform properties');
 if(!js.includes('!motion.matches')||!js.includes("!matchMedia('(prefers-reduced-motion: reduce)').matches"))errors.push('Reduced-motion preference must bypass GSAP motion');
 if(!js.includes('rotateY:-9')||!js.includes("trigger:hero")||!js.includes('scrub:1.2'))errors.push('Hero camera drift missing');
