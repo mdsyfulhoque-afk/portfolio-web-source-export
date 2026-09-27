@@ -2,7 +2,7 @@
 
 This editable static-site project builds with Node.js built-in modules and runs independently of ChatGPT or the original Sites host. It requires no account session, database, API key or network download to render the website.
 
-The current build produces 46 sitemap routes plus a 404 document, including buyer-specific procurement information and a quality-and-risk approach. The homepage’s GSAP film and hero drift use local libraries and honor changes to reduced-motion and viewport preferences while the page is open. If motion is disabled, all six scenes remain readable as static HTML and diagrams. The portrait and sculpture artwork are served from local assets.
+The current build produces 52 sitemap routes plus a 404 document, including the six commissionable capability pages, expanded About page, procurement information and quality-and-risk approach. The homepage’s GSAP film pins during the scroll sequence; 48 fragments morph through six 3D arrangements, while captions and local photographic/data exhibits crossfade. The portrait has an independent camera drift. GSAP, ScrollTrigger, photographs, variable fonts and font licenses are local. Reduced-motion, small-screen and no-script layouts expose all scene captions and exhibits without pinning.
 
 ## Clean setup
 

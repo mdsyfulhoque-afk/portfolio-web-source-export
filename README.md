@@ -1,8 +1,8 @@
 # Syful Hoque — Evidence to Systems
 
-Updated 28 September 2026 on the isolated sunset-immersive-portfolio branch of the editable source repository.
+Updated 28 September 2026 on the isolated `sunset-immersive-portfolio` branch of the editable source repository. The Claude-built site remains on its original branch.
 
-This branch adds an original Sunset-informed visual system across the portfolio, uses a portrait supplied by Mohammad Syful Hoque locally in the hero, and retains the GSAP/ScrollTrigger film. The reference informed visual and engineering techniques; its brand, copy and assets were not copied. This source tree is the current version. Any ZIP already in the repository is a prior baseline and does not include these branch changes.
+This revision uses the supplied portfolio archive as its design foundation and carries the Evidence System art direction through the complete site: cool-paper surfaces, a strong 12-column editorial grid, evidence-blue and red-markup accents, appraisal-table details, a reference bar, and self-hosted Latin/Bangla type. A large local portrait opens the homepage; verified field and meeting photographs, sourced figures, and data exhibits anchor the case for the work. The six-scene GSAP/ScrollTrigger film remains a true pinned 3D scroll sequence with 48 fragments, changing camera angles, evidence plates, and scene captions. The existing assignment record and offer wording remain governed by the project evidence audit. Existing ZIPs are earlier baselines; they do not include this revision.
 
 ## Requirements and commands
 
@@ -22,8 +22,10 @@ Open `http://127.0.0.1:4173/`. `npm run dev` rebuilds and starts the local serve
 
 - `build.mjs`: generates the site from the content record, templates and local resources.
 - `content/portfolio.json`: editable structured portfolio source.
-- `src/site.css` and `src/site.js`: responsive site design and browser behavior.
-- `assets/`: self-hosted artwork, owner portrait, fonts, font licenses, GSAP and ScrollTrigger.
+- `src/site.css`, `src/design-tokens.css`, and `src/evidence-system.css`: base layout, design tokens, and Evidence System visual layer.
+- `src/site.js`: navigation, evidence-reference interactions, theme choice, local enquiry events, and cinematic motion.
+- `content/about.json` and `src/about.js`: owner-approved profile, capabilities, sectors, methods, and institutions for the expanded About page.
+- `assets/`: self-hosted photographs, portrait, variable fonts and licenses, GSAP, ScrollTrigger, and legacy artwork.
 - `dist/`: generated site output, included for immediate review and deployment.
 - `server.mjs` and `verify.mjs`: local preview server and route, asset, accessibility and cinematic-motion checks.
 - `pod/`: evidence, asset, dependency, deployment and handoff notes.
@@ -31,7 +33,9 @@ Open `http://127.0.0.1:4173/`. `npm run dev` rebuilds and starts the local serve
 
 ## Cinematic motion and accessibility
 
-The homepage film pins during the scroll sequence. One persistent set of 48 fragments moves through six 3D arrangements, scene captions crossfade, the scene rail navigates the sequence, and the hero image has its own independent camera drift. GSAP and ScrollTrigger are bundled locally. Motion preference and viewport changes tear down or rebuild the animated tier. Reduced-motion, small-screen and script-unavailable users receive all six captions and diagrams in a static reading layout with ordinary page scrolling. The current animated caption is the only one exposed to assistive technology.
+The homepage film pins during the scroll sequence. One persistent set of 48 fragments moves through six 3D arrangements; scene captions and supporting documentary/data exhibits crossfade, a scene rail navigates the sequence, and the hero portrait has its own independent camera drift. GSAP and ScrollTrigger are bundled locally. Motion preference and viewport changes tear down or rebuild the animated tier. Reduced-motion, small-screen and script-unavailable users receive all six captions, local evidence exhibits, and diagrams in a static reading layout with ordinary page scrolling. Only the current animated caption is exposed to assistive technology.
+
+The visual system uses local variable WOFF2 fonts: Anēk Latin and Anēk Bangla for display/UI, Newsreader for editorial reading, and Martian Mono for figures and evidence references. It supports day-table and night-desk palettes and keeps visible focus states and non-colour evidence labels.
 
 ## Institutional buyer readiness
 
@@ -43,7 +47,7 @@ The browser emits local `site:measurement` events for enquiry calls to action, p
 
 ## Editing content
 
-Edit `content/portfolio.json` and the relevant templates, styles or scripts, then run `npm run build` and `npm run check`. `prepare-fonts.mjs` is optional maintenance tooling; it is not needed to install, build, run or deploy the site.
+Edit `content/portfolio.json` for assignment records and `content/about.json` for the public profile, capabilities, sectors, methods, and institutional experience. Update the relevant templates, styles or scripts, then run `npm run build` and `npm run check`. `prepare-fonts.mjs` is optional maintenance tooling; it is not needed to install, build, run or deploy the site.
 
 ## Environment
 

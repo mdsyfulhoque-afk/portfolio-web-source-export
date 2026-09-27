@@ -1,10 +1,10 @@
 # Strategy lock — production revision
 
-Pod 1.0.0 · 16 September 2026
+Pod 1.1.0 · 28 September 2026
 
 ## 1. Positioning
 
-Syful Hoque: economist, policy and systems strategist. One connected capability: evidence → decisions → implementation. The homepage uses the editorial proposition “Evidence. Decisions. Working systems.” and names the operator directly.
+Syful Hoque: development economist and management-consulting leader. The homepage first identifies the practitioner, buyer audience and commissionable outputs; the shorter philosophy line follows. The commercial route connects cost and feasibility work, investment and financing, policy, implementation, research/evaluation and stakeholder convening.
 
 ## 2. Commercial journey
 
@@ -12,7 +12,7 @@ Donor and programme visitors move from a practice to supporting assignments and 
 
 ## 3. Presentation
 
-Ivory and ink grounds, forest for systems, cobalt for evidence, amber for decisions. Fraunces, Inter and IBM Plex Mono are self-hosted. An original conceptual still life replaces the unavailable real portrait; it is not presented as a person or project photograph. ProposalDesk retains its orange sub-brand.
+Use the user's supplied Evidence System archive as the visual foundation: cool paper, crisp appraisal grids, a live evidence-reference strip, cobalt evidence marks, red review marks, Anek Latin/Bangla, Newsreader and Martian Mono. The supplied portrait and documentary photos are local assets, captioned for their actual subject. Keep ProposalDesk as a distinct orange offer. Do not copy third-party marks or imply endorsements.
 
 ## 4. Evidence
 
@@ -20,7 +20,7 @@ The imported CV-derived record is preserved. The career intelligence workbook an
 
 ## 5. Decision Flow revision — 16 September 2026
 
-The earlier flat DOM/SVG-only decision is superseded by a cinematic CSS 3D shared-node scene model: Reality → Signal → Evidence → Decision → System → Arrival. Forty-eight persistent fragments are re-targeted between six arrangements, with perspective, depth, camera transforms, causal and decision paths, and six named system nodes. This uses the supplied design brief’s lightweight non-Next.js approach. The production delivery is a portable multi-page static site rather than the Claude-specific streaming component. WebGL is not required to express the requested depth; avoiding a 3D runtime keeps the primary content immediate and the site portable. The scene initialises near view, uses a single requestAnimationFrame-coalesced scroll handler, reduces to 24 nodes below 900px, and becomes six complete static panels below 600px, on short screens, for reduced motion or without JavaScript. Captions always exist in the DOM. The film includes scene navigation and a skip link. Performance budgets are design targets; no unsupported 60fps claim is made.
+The six-scene film uses a single persistent 48-fragment CSS 3D model animated by GSAP and ScrollTrigger. Scroll pins the film and scrubs fragment morphs, scene captions, supporting evidence exhibits and camera transforms. The hero portrait has a separate ScrollTrigger camera drift. GSAP code lives in the local asset tree; no remote runtime is needed. Captions and static exhibits are present in HTML. At reduced motion, narrow viewports or without JavaScript, the pinning layer gives way to six ordinary readable scene blocks. Scene navigation and a skip link are provided. No unmeasured frame-rate claim is made.
 
 ## 6. Delivery
 

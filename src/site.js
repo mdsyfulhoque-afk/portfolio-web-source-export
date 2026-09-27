@@ -1,6 +1,23 @@
 const $=(selector,root=document)=>root.querySelector(selector);
 const $$=(selector,root=document)=>Array.from(root.querySelectorAll(selector));
 function measureSiteEvent(name,fields={}){window.dispatchEvent(new CustomEvent('site:measurement',{detail:{event:name,path:location.pathname,...fields}}));}
+
+const themeToggle=$('[data-theme-toggle]');
+const themePreference=matchMedia('(prefers-color-scheme: dark)');
+function getTheme(){return document.documentElement.dataset.theme||(themePreference.matches?'dark':'light');}
+function syncThemeControl(){if(!themeToggle)return;const dark=getTheme()==='dark';themeToggle.textContent=dark?'Day table':'Night desk';themeToggle.setAttribute('aria-label',`Switch to ${dark?'day table':'night desk'}`);themeToggle.setAttribute('aria-pressed',String(dark));}
+try{const savedTheme=localStorage.getItem('syful-theme');if(savedTheme==='dark'||savedTheme==='light')document.documentElement.dataset.theme=savedTheme;}catch{/* Theme still works for this visit if storage is unavailable. */}
+syncThemeControl();
+themePreference.addEventListener('change',()=>{if(!document.documentElement.dataset.theme)syncThemeControl();});
+themeToggle?.addEventListener('click',()=>{const next=getTheme()==='dark'?'light':'dark';document.documentElement.dataset.theme=next;try{localStorage.setItem('syful-theme',next);}catch{/* The selected theme remains applied for this visit. */}syncThemeControl();});
+const formulaRef=$('[data-formula-ref]'),formulaValue=$('[data-formula-value]');
+const defaultFormula={ref:formulaRef?.textContent||'A1',value:formulaValue?.textContent||'=Economics × Data stories × Technology × Research'};
+let lastEvidenceRef='';
+function showEvidenceFormula(element){const record=element?.closest('[data-evidence-ref][data-evidence-formula]');if(!record){if(document.activeElement?.closest?.('[data-evidence-ref][data-evidence-formula]'))return;lastEvidenceRef='';if(formulaRef)formulaRef.textContent=defaultFormula.ref;if(formulaValue)formulaValue.textContent=defaultFormula.value;return;}if(record.dataset.evidenceRef===lastEvidenceRef)return;lastEvidenceRef=record.dataset.evidenceRef;if(formulaRef)formulaRef.textContent=record.dataset.evidenceRef;if(formulaValue)formulaValue.textContent='='+record.dataset.evidenceFormula;}
+document.addEventListener('pointerover',event=>{if(event.target.closest?.('[data-evidence-ref][data-evidence-formula]'))showEvidenceFormula(event.target);});
+document.addEventListener('pointerout',event=>{const record=event.target.closest?.('[data-evidence-ref][data-evidence-formula]');if(record&&!record.contains(event.relatedTarget))showEvidenceFormula(null);});
+document.addEventListener('focusin',event=>showEvidenceFormula(event.target));
+document.addEventListener('focusout',event=>{if(!event.relatedTarget?.closest?.('[data-evidence-ref][data-evidence-formula]'))showEvidenceFormula(null);});
 document.addEventListener('click',event=>{const anchor=event.target.closest('a');if(!anchor)return;if(anchor.matches('a[href^="/work-with-me/"]')){const service=new URL(anchor.href).searchParams.get('service')||'general';measureSiteEvent('enquiry_cta_click',{service});}if(anchor.id==='brief-email')measureSiteEvent('enquiry_handoff',{channel:'email'});if(anchor.id==='brief-whatsapp')measureSiteEvent('enquiry_handoff',{channel:'whatsapp'});});
 const heroImage=$('.hero-image');
 heroImage?.addEventListener('error',()=>{heroImage.hidden=true;heroImage.nextElementSibling.hidden=false;});
@@ -39,6 +56,7 @@ function initCinematicMotion(){
  const shortViewport=matchMedia('(max-height: 699px)');
  const captions=film?$$('.film-caption',film):[];
  const nodes=film?$$('.fragment',film):[];
+ const media=film?$$('.film-media',film):[];
  const rail=film?$$('[data-scene-jump]',film):[];
  const world=film?$('.film-world',film):null;
  const connections=film?$('.system-connections',film):null;
@@ -66,12 +84,14 @@ function initCinematicMotion(){
    if(i===index)button.setAttribute('aria-current','step');
    else button.removeAttribute('aria-current');
   });
+  media.forEach(item=>{const active=Number(item.dataset.sceneFor)===index;item.classList.toggle('is-active',active);});
   if(changed&&announce&&live){const label=captions[index]?.dataset.sceneLabel||`Scene ${index+1}`;live.textContent=`Scene ${index+1} of ${captions.length}: ${label}.`;}
  }
  function showStaticFilm(){
   if(!film)return;
   film.classList.remove('is-enhanced','gsap-enhanced');
   captions.forEach(c=>{c.setAttribute('aria-hidden','false');c.classList.remove('is-active');});
+  media.forEach(item=>item.classList.remove('is-active'));
   rail.forEach(b=>b.removeAttribute('aria-current'));
   if(live)live.textContent='';
   nodes.forEach(node=>{node.hidden=false;node.style.removeProperty('transform');node.style.removeProperty('opacity');node.style.removeProperty('filter');node.style.removeProperty('background');node.style.removeProperty('will-change');});
@@ -106,6 +126,8 @@ function initCinematicMotion(){
    const camera=[[-5,-12,0],[8,7,-40],[12,-16,35],[0,0,45],[-7,12,0],[0,0,0]];
    const tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:film,start:'top top',end:'bottom bottom',pin:$('.film-sticky',film),pinSpacing:false,scrub:1.15,anticipatePin:1,invalidateOnRefresh:true}});
    gsap.set(nodes,{transformPerspective:900,transformOrigin:'center center'});
+   gsap.set(media,{autoAlpha:0,transformPerspective:900,transformOrigin:'center center'});
+   const firstMedia=media.find(item=>item.dataset.sceneFor==='0');if(firstMedia)gsap.set(firstMedia,{autoAlpha:1,x:-18,y:10,rotateZ:-3,scale:.94});
    nodes.forEach((node,i)=>{const p=pose(0,i);gsap.set(node,{x:p.x,y:p.y,z:p.z,rotateX:p.rX,rotateY:p.rY,scale:p.scale,autoAlpha:p.opacity});});
    gsap.set(world,{rotateX:camera[0][0],rotateY:camera[0][1],translateZ:camera[0][2]});
    gsap.set(captions,{autoAlpha:0,y:34});gsap.set(captions[0],{autoAlpha:1,y:0});
@@ -114,6 +136,9 @@ function initCinematicMotion(){
     nodes.forEach((node,i)=>{const p=pose(next,i);tl.to(node,{x:p.x,y:p.y,z:p.z,rotateX:p.rX,rotateY:p.rY,scale:p.scale,autoAlpha:p.opacity,duration:1},s);});
     const cam=camera[next];tl.to(world,{rotateX:cam[0],rotateY:cam[1],translateZ:cam[2],duration:1},s);
     tl.to(captions[s],{autoAlpha:0,y:-34,duration:.18},s+.76).to(captions[next],{autoAlpha:1,y:0,duration:.24},s+.78);
+    const outgoing=media.find(item=>Number(item.dataset.sceneFor)===s),incoming=media.find(item=>Number(item.dataset.sceneFor)===next);
+    if(outgoing)tl.to(outgoing,{autoAlpha:0,x:(s%2?14:-14),y:-12,rotateZ:s%2?2:-2,scale:.9,duration:.28,ease:'power2.in'},s+.68);
+    if(incoming)tl.fromTo(incoming,{autoAlpha:0,x:next%2?18:-18,y:16,rotateZ:next%2?3:-3,scale:.92},{autoAlpha:.96,x:0,y:0,rotateZ:next%2?1:-1,scale:1,duration:.42,ease:'power2.out'},s+.72);
     tl.to(connections,{autoAlpha:next===3?1:0,duration:.28},s+.2);
     tl.to($('.causal-connections',film),{autoAlpha:next===1?1:0,duration:.28},s+.2);
     tl.to($('.decision-connections',film),{autoAlpha:next===2?1:0,duration:.28},s+.2);
@@ -132,7 +157,7 @@ function initCinematicMotion(){
   function target(s,i){const col=i%8,row=Math.floor(i/8);if(s===0)return{x:(rand(i,12.19)-.5)*500,y:(rand(i,32.4)-.5)*330,z:(rand(i,76.3)-.5)*400,opacity:.35+rand(i,4.8)*.65,blur:rand(i,16.4)>.78?1.5:0};if(s===1)return{x:((i%3)-1)*145+(rand(i,5)-.5)*52,y:(Math.floor(i/3)-7.5)*16,z:((i%3)-1)*65,opacity:i>41?.14:.88,blur:i>41?2:0};if(s===2)return{x:(col-3.5)*55,y:65-Math.exp(-(((col-3.5)/2.3)**2))*150+row*11,z:(row-2.5)*35,opacity:.9,blur:0};if(s===3){const branch=Math.floor(row/2)-1;return{x:(col-3.5)*57,y:branch*(col+1)*14,z:branch===0?85:-90-Math.abs(branch)*70,opacity:branch===0?1:.16,blur:branch===0?0:1.2};}if(s===4){const a=(i%6)*Math.PI/3,r=135+(Math.floor(i/6)-3.5)*3;return{x:Math.cos(a)*r,y:Math.sin(a)*r*.8,z:Math.sin(a)*18,opacity:.93,blur:0};}return{x:(col-3.5)*53,y:(row-2.5)*42,z:0,opacity:.75,blur:0};}
   function schedule(){if(!frame&&fallbackActive&&visible)frame=requestAnimationFrame(draw);}
   function draw(){frame=0;if(!fallbackActive||!visible)return;const top=film.getBoundingClientRect().top,header=$('.header').offsetHeight;const distance=Math.max(1,film.offsetHeight-innerHeight+header);const progress=clamp((header-top)/distance,0,1)*6;const current=Math.min(5,Math.floor(progress));const local=progress-current;const t=smooth(clamp((local-.16)/.72,0,1));const next=Math.min(5,current+1);const count=innerWidth<900?24:48;
-   nodes.forEach((node,i)=>{node.hidden=i>=count;if(i>=count)return;const a=target(current,i),b=target(next,i),x=lerp(a.x,b.x,t),y=lerp(a.y,b.y,t),z=lerp(a.z,b.z,t);node.style.transform=`translate3d(${x}px,${y}px,${z}px) rotateY(${lerp(current===0?i*7:0,0,t)}deg)`;node.style.opacity=lerp(a.opacity,b.opacity,t);node.style.filter=`blur(${lerp(a.blur,b.blur,t)}px)`;node.style.background=i%9===0?'#c59037':current>=4?'#9bad9d':'#9cafd9';node.style.willChange='transform, opacity';});
+   nodes.forEach((node,i)=>{node.hidden=i>=count;if(i>=count)return;const a=target(current,i),b=target(next,i),x=lerp(a.x,b.x,t),y=lerp(a.y,b.y,t),z=lerp(a.z,b.z,t);node.style.transform=`translate3d(${x}px,${y}px,${z}px) rotateY(${lerp(current===0?i*7:0,0,t)}deg)`;node.style.opacity=lerp(a.opacity,b.opacity,t);node.style.filter=`blur(${lerp(a.blur,b.blur,t)}px)`;node.style.background=i%9===0?'var(--markup)':current>=4?'var(--system)':'var(--evidence)';node.style.willChange='transform, opacity';});
    const camera=[[-5,-12,0],[8,7,-40],[12,-16,35],[0,0,45],[-7,12,0],[0,0,0]],ca=camera[current],cb=camera[next];world.style.transform=`translateZ(${lerp(ca[2],cb[2],t)}px) rotateX(${lerp(ca[0],cb[0],t)}deg) rotateY(${lerp(ca[1],cb[1],t)}deg)`;const systemVisibility=current===3?t:current===4?1-t:0;connections.style.opacity=systemVisibility;labels.forEach(label=>label.style.opacity=systemVisibility);$('.causal-connections',film).style.opacity=current===1?t:current===2?1-t:0;$('.decision-connections',film).style.opacity=current===2?t:current===3?1-t:0;$('.alternative-path',film).style.opacity=current===3?1-t:1;if(current!==activeScene)setActiveScene(current,true);
   }
   observer=typeof IntersectionObserver==='undefined'?null:new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible)schedule();},{rootMargin:'250px'});

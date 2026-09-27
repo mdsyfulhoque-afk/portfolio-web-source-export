@@ -1,30 +1,25 @@
 # Client handoff
 
-Version 1.0.0 · 16 September 2026
+Version 1.1.0 · 28 September 2026
 
 ## Delivered
 
-The complete 47-document static site (46 routes plus 404), original editorial hero, GSAP/ScrollTrigger six-scene decision journey with responsive motion teardown, 28 detailed assignment pages, filterable index, four practice pages, four-offer commercial ladder, ProposalDesk scope selection, three practical method guides, public professional profile, intent-based enquiry preparation, procurement persona and vendor-information page, quality-and-risk route, and privacy page.
+An expanded static portfolio in the Evidence System art direction from the supplied design archive. The paper-and-appraisal visual language, Bangla/Latin typography, evidence reference bar, day/night palettes, local portrait, documentary photo plates and six commissionable capability families carry through the existing multi-page site. The homepage now leads with who the practitioner is, whom the work serves and what can be commissioned before the short philosophy line.
 
-All five supplied source categories informed the build. Publication copy distinguishes professional scope from impact and live service from proposed offers. Original files remain untouched in the parent workspace. The application source and all assets are included here.
+The six-scene decision film pins to the viewport and scrolls through a real GSAP/ScrollTrigger timeline. Forty-eight fragments morph through six 3D formations; scene captions and local evidence exhibits crossfade; the portrait has its own scroll-linked camera drift. All 52 routes remain useful as static HTML. Reduced-motion, compact viewport and no-JavaScript visitors see all six scene captions and local supporting exhibits without the pinning effect.
+
+The project includes an expanded About page and six individual capability pages, while keeping sectors separate. Procurement/vendor readiness and quality/risk routes, the honest Pilot labels for The Costing Clinic and Toolkit Licensing, assignment evidence notes and local enquiry handoff remain in place.
 
 ## Verified
 
-The production generator and JavaScript pass syntax checks. `verify.mjs` checks every page’s internal links, anchors, local assets, metadata, landmarks, unique IDs, placeholder/unsupported-claim exclusions, film node/caption structure, fail-closed form and hosting manifest. An independent research review identified and resolved claim, date, form-fallback and navigation-fallback issues. The local homepage returned HTTP 200 before the preview was opened.
+The latest static generation and project checker pass: 52 routes, 53 HTML documents including 404, 1,937 internal links and 169 local asset references. Checks include all six capability routes, the buyer-first homepage, bundled fonts, the 48-node six-scene pin/scrub film, static motion fallbacks, procurement and quality-risk disclosures, and selected factual boundaries.
 
-## Explicit limits
+The production browser-control connection was unavailable during this pass, so there is no new screenshot-based or live interaction claim. See `RELEASE-AUDIT.md` for remaining checks and limitations.
 
-Browser interaction, screenshot and real-device performance testing were not performed. The optional WebMCP `prepare_project_brief` tool is implemented but has not been exercised in a supported live validation context. No claim of full WCAG conformance, measured 60fps, conversion lift, investment raised or revenue generated is made.
+## Commercial and evidence limits
 
-The website prepares messages for review; it does not send them automatically or save leads. Toolkit IP ownership and commercial terms remain to be confirmed before licensing. The enquiry-based proposed pilot is not represented as an already-operating subscription or SaaS product.
+Procurement registrations, insurance and prequalification remain opportunity-specific and are not asserted. No full accessibility certification, frame-rate result, Core Web Vitals or conversion lift is claimed. No GA4, Search Console, CRM, lead storage or nurture provider is connected. Product pilots remain explicitly marked; licensing rights and commercial terms require confirmation.
 
-## Content follow-up
+## Rebuild and preview
 
-- Reconcile exact periods for the conflicting assignments in `SOURCE-AUDIT.md` if precise CV dates should be published.
-- Supply a cleared portrait and LinkedIn URL only if these are desired.
-- Confirm final service pricing, availability and toolkit licensing rights before expanding commercial claims.
-- Add permissioned testimonials and factual outcome evidence when available.
-
-## Reconstruction
-
-Run `node build.mjs`, `node verify.mjs`, then `node server.mjs` with Node 24.16.0. No installation or secret is required. Deployment and rollback instructions are in `DEPLOYMENT.md`.
+Use Node.js 22.9+ and npm 11.16.0. Run `npm ci`, `npm run build`, `npm run check`, then `npm run start`; preview at `http://127.0.0.1:4173/`. Deployment configuration is described in `pod/DEPLOYMENT.md`.

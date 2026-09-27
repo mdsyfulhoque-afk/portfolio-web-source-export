@@ -1,14 +1,14 @@
-# Dependencies
+# Dependencies and licences
 
-Version 1.0.0 · 16 September 2026
+Version 1.1.0 · 28 September 2026
 
-| Component | Version / licence | Purpose |
+| Component | Version / licence | Use |
 |---|---|---|
-| Node.js | 24.16.0 verified; >=22 required | Build, preview and verification; built-in modules only |
-| Application npm dependencies | None | No install step or package lock required |
-| Fraunces | Google Fonts / SIL Open Font License | Display, normal and italic variable Latin subsets |
-| Inter | Google Fonts / SIL Open Font License | Body and interface variable Latin subset |
-| IBM Plex Mono | Google Fonts / SIL Open Font License | Evidence labels and metadata Latin subset |
-| Original hero image | Generated for this website | Source exported and WebP conversion included |
+| Node.js | 22.9+ (release environment used 24.x) | Static build, local preview and checks; built-in modules only |
+| npm packages | None | Empty application dependency tree; lockfile retained for reproducible `npm ci` |
+| GSAP + ScrollTrigger | Local browser assets in `assets/` | Pinned, scrubbed six-scene film and hero camera drift |
+| Anēk Latin + Bangla | SIL Open Font License; licence files bundled | Display/UI in both scripts |
+| Newsreader regular + italic | SIL Open Font License; licence files bundled | Editorial text and pull quotes |
+| Martian Mono | SIL Open Font License; licence files bundled | Evidence references, metadata and figures |
 
-No React, Three.js, WebGL, analytics runtime, external font request, database or authentication SDK is required. Sites hosting handles the private edition’s access control outside the application.
+There is no framework runtime, external font service, image CDN, analytics SDK, database or authentication dependency. `prepare-fonts.mjs` is optional maintenance tooling and is not needed to build or run the project.

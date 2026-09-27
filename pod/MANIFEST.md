@@ -1,25 +1,23 @@
-# Escape Pod manifest
+# Project manifest
 
-Version: 1.0.0 · Date: 16 September 2026
+Version 1.1.0 · 28 September 2026
 
-Change summary: replaces an environment-specific prototype with the complete portable production website, cinematic Decision Flow, evidence-qualified commercial pages and working enquiry preparation.
+This repository is the editable source of the current portfolio website on branch `sunset-immersive-portfolio`. The supplied portfolio archive informed the visual system and supplied media, while assignment copy continues to follow the source and evidence audit.
 
-| Path | Purpose |
+| Area | Purpose |
 |---|---|
-| `build.mjs` | Deterministic HTML page generator and qualified publication copy |
-| `src/site.css` | Responsive editorial design and static/3D scene states |
-| `src/site.js` | Navigation, filtering, enquiry preparation and cinematic timeline |
-| `content/portfolio.json` | Preserved source record; not served publicly |
-| `assets/` | Reproducible local hero and fonts |
-| `dist/` | Complete deployable static website |
-| `server.mjs` | Local static preview, loopback only |
-| `verify.mjs` | Static link, asset, structure and safety checks |
-| `prepare-fonts.mjs` | Optional font refresh; unnecessary to rebuild |
-| `package.json` | Zero-dependency scripts and release version |
-| `.openai/hosting.json` | Existing private Sites project binding |
-| `STRATEGY-LOCK.md` | Current scope and 3D decision revision |
-| `README.md` | Deterministic reconstruction instructions |
-| `pod/*.md` | Decisions, evidence audit, dependencies, assets, deployment and handoff |
-| `.env.example` | Documents that no runtime secret is required |
+| `build.mjs` | Static page generator, shell, evidence plates, route and sitemap generation |
+| `content/portfolio.json` | Assignment evidence record |
+| `content/about.json` | Profile, commissioned service families, sectors, methods and institutions |
+| `src/site.css` | Base responsive layout and legacy structural components |
+| `src/design-tokens.css` | Evidence System color, typography, grid and motion tokens |
+| `src/evidence-system.css` | Site-wide visual redesign and static/animated film styles |
+| `src/site.js` | Navigation, theme, evidence reference, enquiry behavior and GSAP/ScrollTrigger motion |
+| `src/about.js` | Data-driven About page renderer |
+| `assets/` | Local portrait, documentary photos, fonts and licenses, GSAP/ScrollTrigger, diagrams |
+| `dist/` | Generated 52-route static site plus 404 page |
+| `verify.mjs` | Route, asset, metadata, content, accessibility-structure and motion checks |
+| `pod/` | Evidence, provenance, dependency, release and handoff documentation |
+| `package.json` / lockfile | Node version and reproducible build/preview/check scripts; zero third-party npm packages |
 
-Reconstruct with Node 24.16.0: `node build.mjs`, `node verify.mjs`, `node server.mjs`. No npm install or database migration is required. All application assets are present. Public deployment archives contain only `dist` and its hosting metadata; the separate Escape Pod includes the full source without `.git`, temporary files or secrets.
+Run with `npm ci`, `npm run build`, `npm run check`, then `npm run start`. No database migration, API key or runtime network asset is required.

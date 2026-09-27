@@ -1,0 +1,211 @@
+{
+  "intro": "I am a development economist and management-consulting leader. I work across economic appraisal, policy research and programme delivery, helping teams turn complex evidence into choices they can assess and implement.",
+  "scope": "My career spans agriculture, public health, industry, infrastructure, trade and public finance. I have contributed to more than 100 government- and international development partner-funded programmes across public and private sectors.",
+  "metrics": [
+    {
+      "value": "20",
+      "unit": "years",
+      "label": "Professional experience",
+      "detail": "Owner-provided career summary; roles and assignments may overlap.",
+      "source": "Owner-provided professional profile; CV and portfolio record"
+    },
+    {
+      "value": "100+",
+      "unit": "programmes",
+      "label": "Programmes contributed to",
+      "detail": "Aggregate public- and private-sector experience; assignment pages show selected records.",
+      "source": "Owner-provided career summary"
+    },
+    {
+      "value": "5",
+      "unit": "years",
+      "label": "World Bank South Asia experience",
+      "detail": "Economist (STC) and analytical and operational assignments associated with SARCE.",
+      "source": "Owner-provided career summary"
+    }
+  ],
+  "worldBank": {
+    "summary": "For five years, I worked as an Economist (STC) and contributed to analytical and operational assignments associated with the Office of the Chief Economist for South Asia (SARCE) at the World Bank. This included research needs from economists in Finance, Competitiveness and Innovation (FCI), Equity, Growth and Institutions (EFI), and requests from other departments.",
+    "delivery": "I supported World Bank-commissioned research and surveys in Bangladesh from early design through budgeting, research inputs, implementation, coordination, analysis and dissemination. The work meant balancing requests across teams and coordinating with economists, research firms, specialists and local partners.",
+    "phases": [
+      "Study and survey design",
+      "Budgeting and research inputs",
+      "Research-firm and field coordination",
+      "Analysis and evaluation",
+      "Dissemination and dialogue"
+    ],
+    "leadership": "Across assignments, I have assembled firms and professional teams, coordinated researchers and implementers, and contributed to programme design, delivery, monitoring, evaluation and scale-up. My focus is clear scope, sound evidence and work that fits the institutional context."
+  },
+  "capabilityFamilies": [
+    {
+      "title": "Costing, cost–benefit analysis and feasibility",
+      "summary": "Test the economic, financial, social and environmental case for an investment or programme.",
+      "points": [
+        "Economic and financial appraisal",
+        "Cost–benefit analysis, costing and financial models",
+        "Feasibility studies, assumptions and sensitivity analysis"
+      ],
+      "href": "/expertise/economic-appraisal/",
+      "action": "Explore economic appraisal"
+    },
+    {
+      "title": "Investment, markets and financing",
+      "summary": "Translate market and programme evidence into options that institutions and investors can assess.",
+      "points": [
+        "Business, investment and financing plans",
+        "Market and financing studies",
+        "Resource mobilisation and financing models"
+      ],
+      "href": "/expertise/investment-financing/",
+      "action": "Explore financing and delivery"
+    },
+    {
+      "title": "Policy, advocacy and institutions",
+      "summary": "Connect policy questions to the organisations, incentives and stakeholders that shape implementation.",
+      "points": [
+        "Policy analysis, advisory work and policy notes",
+        "Public–private coordination and business climate",
+        "Institutional analysis, capacity building and advocacy"
+      ],
+      "href": "/expertise/policy-advocacy/",
+      "action": "Explore policy and institutions"
+    },
+    {
+      "title": "Programme leadership, implementation and M&E",
+      "summary": "Support programmes from design and budgeting through delivery, monitoring, evaluation and scale-up.",
+      "points": [
+        "Team assembly and multi-partner coordination",
+        "Operational planning, budgeting and delivery",
+        "M&E, MRM and MEL frameworks"
+      ],
+      "href": "/expertise/programme-delivery/",
+      "action": "Explore programme delivery"
+    },
+    {
+      "title": "Research, surveys and impact evaluation",
+      "summary": "Build a fit-for-purpose evidence base through experimental research, measurement and mixed-methods inquiry.",
+      "points": [
+        "RCT and experimental research",
+        "Social impact, livelihoods and economic-development evaluation",
+        "Nationwide, baseline, midline and endline surveys"
+      ],
+      "href": "/expertise/research-evaluation/",
+      "action": "Explore research and evaluation"
+    },
+    {
+      "title": "Stakeholder convening and technical dialogue",
+      "summary": "Bring public institutions, researchers, businesses and development partners into a focused working conversation.",
+      "points": [
+        "Findings roundtables and dissemination sessions",
+        "Technical workshops and stakeholder dialogue",
+        "Facilitation that clarifies evidence, options and next steps"
+      ],
+      "href": "/expertise/convening-dialogue/",
+      "action": "Discuss a convening"
+    }
+  ],
+  "sectors": [
+    {
+      "title": "Public and private sector development",
+      "summary": "Public–private coordination; investment and business-climate advisory; institutional capacity; public finance; market and financing studies; local governance; and business and trade institutions."
+    },
+    {
+      "title": "Sustainable and human development",
+      "summary": "Poverty, livelihoods and agriculture; health and nutrition; WASH and energy; and programmes connected to sustainable-development goals."
+    },
+    {
+      "title": "Industry, business and value chains",
+      "summary": "Manufacturing and MSMEs; jobs, productivity and labour rights; technology adoption; compliance and management practice; financial performance; competitiveness; and production ecosystems."
+    },
+    {
+      "title": "Energy, infrastructure and environment",
+      "summary": "Renewable energy and solar home systems; efficient appliances; special economic zones; port development; urban sanitation, sewerage and faecal sludge; and solid or plastic waste."
+    }
+  ],
+  "researchMethods": [
+    "RCT and experimental evaluation",
+    "Impact evaluation and social outcomes",
+    "Baseline, midline and endline surveys",
+    "Focus group discussions (FGDs)",
+    "Key informant interviews (KIIs)",
+    "ODK",
+    "SurveyCTO",
+    "Stata",
+    "SPSS",
+    "ArcGIS",
+    "EViews",
+    "Microsoft Excel"
+  ],
+  "organisationGroups": [
+    {
+      "title": "Multilateral institutions and development finance",
+      "names": [
+        "World Bank Group (WBG)",
+        "Asian Development Bank (ADB)",
+        "International Finance Corporation (IFC)",
+        "European Commission Bangladesh Delegation",
+        "World Trade Organization (WTO)",
+        "UNCTAD",
+        "RIMES"
+      ]
+    },
+    {
+      "title": "Government and public institutions",
+      "names": [
+        "Ministry of Finance, Government of Bangladesh",
+        "Dhaka South City Corporation",
+        "Payra Port Authority, Government of Bangladesh"
+      ]
+    },
+    {
+      "title": "Universities and research organisations",
+      "names": [
+        "Tufts University, USA",
+        "Centre for Development Research (ZEF), University of Bonn",
+        "Korea Institute for Industrial Economics and Trade (KIET)",
+        "Johns Hopkins University, USA",
+        "Columbia University, USA",
+        "Innovations for Poverty Action (IPA)",
+        "Centre for Policy Dialogue"
+      ]
+    },
+    {
+      "title": "International NGOs and development partners",
+      "names": [
+        "BRAC",
+        "Bill & Melinda Gates Foundation",
+        "WaterAid",
+        "CARE International, UK",
+        "CLASP International, USA",
+        "Ajinomoto Foundation",
+        "Japan International Cooperation Agency (JICA)",
+        "Concern Worldwide",
+        "Japan Development Institute (JDI)",
+        "Campaign for Tobacco-Free Kids (TFK)",
+        "CUTS International",
+        "Monusher Jonno Foundation (MJF)",
+        "Alliance Forum Foundation",
+        "Ajinomoto International Cooperation Network for Nutrition and Health"
+      ]
+    },
+    {
+      "title": "Consulting, delivery and private-sector organisations",
+      "names": [
+        "PwC UK",
+        "DFID-funded Business Innovation Facility",
+        "ICF International, UK",
+        "Transport & Infrastructures Expertise Group (TIEG EEIG)",
+        "C&M Consulting & Management Ltd.",
+        "TAS Europrojects, Belgium",
+        "JETRO",
+        "Sumitomo Corporation, Japan",
+        "Morinaga, Japan",
+        "East Coast Group",
+        "Berger Paints",
+        "Local conglomerates, industries, trade bodies and business associations"
+      ]
+    }
+  ],
+  "organisationNote": "These names reflect selected client, commissioning, consulting, research and delivery relationships described in my career record. Roles and contracting arrangements vary by assignment. Inclusion does not imply endorsement.",
+  "claimsNote": "The aggregate career figures above are supplied by Syful Hoque. The portfolio presents selected assignment records; contracting arrangements vary by engagement."
+}

@@ -9,15 +9,19 @@ for(const [file,html] of textByFile){const label=path.relative(root,file);if((ht
  const ids=Array.from(html.matchAll(/\bid="([^\"]+)"/g),m=>m[1]);if(new Set(ids).size!==ids.length)errors.push(label+': duplicate ids');
  for(const m of html.matchAll(/\b(href|src)="([^\"]+)"/g)){const url=m[2].replaceAll('&amp;','&');if(!url.startsWith('/')&&!url.startsWith('#'))continue;const u=new URL(url,'https://local.test/'+path.relative(root,file).replaceAll('\\','/'));let dest=path.join(root,decodeURIComponent(u.pathname));try{if((await stat(dest)).isDirectory())dest=path.join(dest,'index.html');await stat(dest);if(m[1]==='href')links++;else assets++;if(u.hash){const body=textByFile.get(dest)||await readFile(dest,'utf8');if(!body.includes('id="'+u.hash.slice(1)+'"'))errors.push(label+': missing anchor '+url);}}catch{errors.push(label+': unresolved '+url);}}
 }
-const css=await readFile('dist/assets/site.css','utf8');
+const css=(await Promise.all(['site.css','design-tokens.css','evidence-system.css'].map(name=>readFile(path.join(root,'assets',name),'utf8')))).join('\n');
 const js=await readFile('dist/assets/site.js','utf8');
 for(const m of css.matchAll(/url\(['"]?(\/[^)'" ]+)/g)){try{await stat(path.join(root,m[1]));}catch{errors.push('CSS: missing '+m[1]);}}
 const home=textByFile.get(path.join(root,'index.html'));
 if((home.match(/data-fragment=/g)||[]).length!==48)errors.push('Film must have 48 persistent fragments');
-if(!home.includes('<div class="hero-person"><img src="/assets/syful-hoque-portrait.jpg"')||!home.includes('alt="Portrait of Mohammad Syful Hoque"'))errors.push('Owner portrait must be bundled and described in the hero');
+if(!home.includes('src="/assets/portrait-cutout.webp"')||!home.includes('alt="Portrait of Mohammad Syful Hoque"'))errors.push('Owner portrait must be bundled and described in the hero');
+const primaryPortrait=await stat('dist/assets/portrait-cutout.webp');if(primaryPortrait.size>2000000)errors.push('Primary hero portrait exceeds 2 MB budget');
+if(!home.includes('I help multilateral teams, public institutions, donors and consulting partners')||!home.includes('<strong>Commissionable work:</strong>'))errors.push('Homepage must identify the practitioner, buyer audience and commissioned outputs before the philosophy line');
+for(const name of ['anek-latin-wdth.woff2','anek-bangla-bengali-wdth.woff2','newsreader-opsz.woff2','newsreader-opsz-italic.woff2','martian-mono-wdth.woff2'])try{await stat(path.join(root,'assets',name));}catch{errors.push('Missing self-hosted font: '+name);}
 if((home.match(/data-scene="/g)||[]).length!==6)errors.push('Film must have six DOM captions');
 if(!css.includes('.film:not(.is-enhanced) .film-caption{position:relative')||!css.includes('.film:not(.is-enhanced) .film-visual,.film:not(.is-enhanced) .film-rail{display:none!important}')||!css.includes('prefers-reduced-motion:reduce'))errors.push('Static/reduced-motion fallback missing');
 if(!js.includes("pin:$('.film-sticky',film),pinSpacing:false")||!js.includes("trigger:film")||!js.includes('scrub:1.15'))errors.push('GSAP film pin/scrub choreography missing');
+if((home.match(/data-scene-for=/g)||[]).length!==6||!js.includes('outgoing=media')||!js.includes('incoming=media'))errors.push('Six local exhibits must crossfade with the pinned film scenes');
 if(!js.includes("film.classList.add('is-enhanced','gsap-enhanced')"))errors.push('GSAP film must bypass static presentation styles');
 if(!js.includes('Math.min(1,(index+.08)/tl.duration())'))errors.push('GSAP scene rail must navigate across the complete timeline');
 if(js.includes('gsap.set(node,pose(0,i))')||!js.includes('rotateX:p.rX')||!js.includes('rotateY:p.rY'))errors.push('Fragment rotations must be applied as valid 3D transform properties');
@@ -33,12 +37,15 @@ if(!procurement?.includes('href="/work-with-me/?service=Procurement%20%26%20Vend
 if(!qa||!qa.includes('not a claim of independent audit, certification or donor approval')||!qa.includes('CONFLICTS & ROLE CLARITY'))errors.push('Quality and risk boundaries missing');
 if((home.match(/href="\/procurement\/"/g)||[]).length<1||(home.match(/href="\/quality-assurance\/"/g)||[]).length<1)errors.push('Homepage institutional-buyer pathways missing');
 if((home.match(/aria-hidden="false"/g)||[]).length<6||!home.includes('aria-live="polite"'))errors.push('Static captions and film status must remain accessible');
-if(htmlFiles.length!==47)errors.push('Expected 47 HTML pages after adding procurement and quality routes');
-const sitemap=await readFile('dist/sitemap.xml','utf8');if((sitemap.match(/<loc>/g)||[]).length!==46)errors.push('Expected 46 sitemap routes; the 404 document is intentionally excluded');
+if(htmlFiles.length!==53)errors.push('Expected 53 HTML documents, including 52 routes and the 404 page');
+const sitemap=await readFile('dist/sitemap.xml','utf8');if((sitemap.match(/<loc>/g)||[]).length!==htmlFiles.length-1)errors.push('Sitemap must contain every generated route and exclude the 404 document');
+const capabilityIndex=textByFile.get(path.join(root,'expertise','index.html'));if(!capabilityIndex||!capabilityIndex.includes('Stakeholder convening and technical dialogue'))errors.push('Six commissionable capability families missing from the index');
+for(const route of ['economic-appraisal','investment-financing','policy-advocacy','programme-delivery','research-evaluation','convening-dialogue'])if(!textByFile.has(path.join(root,'expertise',route,'index.html')))errors.push('Missing commissionable capability route: '+route);
+if((home.match(/data-evidence-ref=/g)||[]).length<9||!home.includes('not claims of money managed or outcomes caused'))errors.push('Homepage evidence references or due-diligence scope note missing');
 const contact=textByFile.get(path.join(root,'work-with-me','index.html'));
 if(!contact.includes('id="prepare-brief" disabled')||!contact.includes('class="brief-form" inert'))errors.push('Form must fail closed before JS initializes');
 if(!contact.includes('<noscript>'))errors.push('No-JS contact route missing');
 const manifest=JSON.parse(await readFile('.openai/hosting.json','utf8'));if(!manifest.project_id||manifest.static.directory!=='dist')errors.push('Invalid Sites manifest');
-const img=await stat('dist/assets/evidence-sculpture.webp');if(img.size>350000)errors.push('Hero artwork exceeds budget');const portrait=await stat('dist/assets/syful-hoque-portrait.jpg');if(portrait.size>2000000)errors.push('Owner portrait exceeds 2 MB budget');
+const legacyArtwork=await stat('dist/assets/evidence-sculpture.webp');if(legacyArtwork.size>350000)errors.push('Retained legacy artwork exceeds budget');
 if(errors.length){console.error(errors.join('\n'));process.exit(1);}
-console.log(JSON.stringify({passed:true,pages:htmlFiles.length,internal_links:links,asset_references:assets,hero_bytes:img.size,total_public_bytes:(await Promise.all(files.map(async f=>(await stat(f)).size))).reduce((a,b)=>a+b,0),checks:['routes and anchors','asset closure','metadata and landmarks','48-node/6-caption GSAP pin/scrub film','3D fragment transforms','accessible caption state','live reduced-motion/viewport preference teardown','independent hero camera drift','procurement persona and disclosure routes','quality and risk boundary page','local privacy-safe conversion events','static and reduced-motion fallback','fail-closed enquiry form','unsupported claims and placeholders','hosting manifest']},null,2));
+console.log(JSON.stringify({passed:true,pages:htmlFiles.length,internal_links:links,asset_references:assets,hero_bytes:primaryPortrait.size,total_public_bytes:(await Promise.all(files.map(async f=>(await stat(f)).size))).reduce((a,b)=>a+b,0),checks:['routes and anchors','asset closure','metadata and landmarks','buyer-first homepage message order','self-hosted font set','six capability detail routes','48-node/6-caption GSAP pin/scrub film','3D fragment transforms','crossfading captions and evidence exhibits','accessible caption state','live reduced-motion/viewport preference teardown','independent hero camera drift','procurement persona and disclosure routes','quality and risk boundary page','local privacy-safe conversion events','static and reduced-motion fallback','fail-closed enquiry form','unsupported claims and placeholders','hosting manifest']},null,2));

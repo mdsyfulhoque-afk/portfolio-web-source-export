@@ -1,61 +1,47 @@
-# Export manifest
+# Source manifest
 
-> Scope: the existing ZIP and inventory below describe the earlier packaged baseline. The sunset-immersive-portfolio branch now includes additional source changes and a local owner portrait; the old ZIP does not contain them. No new archive is claimed in this branch update.
+This manifest describes the **current editable repository branch**, not an archive already present in the folder. The existing `website-source-export.zip` files are earlier releases and do not contain all current Evidence System, portrait, content, and capability-route updates.
 
-- Archive filename: `website-source-export.zip`
-- Export date: 2026-09-28
-- Baseline source packaged: revision 369656ad7764fbceaca20fb0a5d8e9983b1b9009. The current branch contains further source changes not present in that archive.
-- Package type: portable, editable Node.js static-site repository plus generated `dist/`
-- Archive layout: project files at the ZIP root; only relative paths are used
+## Project
 
-## Included repository layout
+- Branch: `sunset-immersive-portfolio`
+- Build: Node.js static-site generator; npm lockfile v3, no third-party npm packages.
+- Routes: 52 public routes plus `dist/404.html` (53 generated HTML files total).
+- Motion: locally bundled GSAP/ScrollTrigger, 48 persistent 3D fragments, six scene arrangements, static/reduced-motion alternative.
+- Environment: optional `SITE_ORIGIN`; no secrets or runtime environment variables.
+
+## Key editable files
 
 ```text
-.
-├── .env.example
-├── .gitignore
-├── .nvmrc
-├── .openai/hosting.json              # inert source-host metadata; not a runtime requirement
-├── EXPORT_MANIFEST.md
-├── MEASUREMENT-PLAN.md
-├── PORTABILITY.md
-├── README.md
-├── RELEASE-AUDIT.md
-├── STRATEGY-LOCK.md
-├── build.mjs
-├── content/portfolio.json
-├── package.json
-├── package-lock.json
-├── pod/                               # evidence, provenance, assets and handoff notes
-├── prepare-fonts.mjs                  # optional maintenance script
-├── server.mjs
-├── src/site.css
-├── src/site.js
-├── vercel.json
-├── verify.mjs
-├── assets/                            # local fonts, licenses, artwork, GSAP and ScrollTrigger
-└── dist/                              # generated 46 sitemap routes plus 404 and local assets
+build.mjs
+content/portfolio.json
+content/about.json
+src/site.css
+src/design-tokens.css
+src/evidence-system.css
+src/site.js
+src/about.js
+assets/                         # local portraits, supplied documentary photos, fonts, licenses, GSAP
+pod/                            # evidence, provenance, decisions, dependencies, deployment notes
+README.md
+PORTABILITY.md
+RELEASE-AUDIT.md
+package.json
+package-lock.json
+server.mjs
+verify.mjs
+vercel.json
+dist/                           # generated route pages, local assets and metadata
 ```
 
-The ZIP's file listing is the exact inventory. `node_modules`, `.git`, nested exports, staging directories and intermediate `.7z`/`.tar.gz` archives are excluded.
+## Runtime assets and services
 
-## Runtime and package inventory
+- Fonts: Anēk Latin, Anēk Bangla, Newsreader normal/italic, and Martian Mono variable WOFF2 files; local license texts are included.
+- Visual assets: local portrait and work photographs, generated diagrams/charts, and the unused legacy abstract sculpture.
+- Animation: local GSAP and ScrollTrigger scripts; no CDN request is needed.
+- External services required to display or build: none. Optional Vercel hosting metadata/configuration is not needed for local use.
+- Analytics events: local `CustomEvent`s only; no analytics endpoint receives them.
 
-- Node.js >=22.9; `.nvmrc` specifies Node 22. The clean-extraction audit used Node.js 24.16.0.
-- npm 11.16.0; npm lockfile version 3.
-- Third-party npm dependencies: none. The browser-side GSAP and ScrollTrigger files are included locally in `assets/`.
-- Environment: optional build-time `SITE_ORIGIN`; no secret values or runtime secrets.
-- Required external services for rendering: none. Required fonts, images and animation libraries are local.
-- Measurement: the browser dispatches non-persistent local conversion events only; no analytics provider or transmission is configured.
+## Packaging exclusions
 
-## Assets
-
-`assets/` includes the locally served hero artwork, Fraunces, Inter and IBM Plex Mono WOFF2 files and their license files, plus `gsap.min.js` and `ScrollTrigger.min.js`. `pod/evidence-sculpture-source.png` records the original image source. Generated `dist/` contains the referenced styles, scripts, images, fonts, route HTML and metadata. Site icons and the concise profile text are generated locally.
-
-## Portability boundary
-
-The optional `.openai/hosting.json` is inert hosting metadata, not an application dependency. The optional `document.modelContext` hook is feature-detected and guarded; without a compatible host, the ordinary browser enquiry preparation still works. There are no ChatGPT-only APIs required to build or render the standalone site. Local measurement events are ordinary browser `CustomEvent`s and send nothing to a network service.
-
-## Exclusions and limitations
-
-Secrets, `.env`, `node_modules`, `.git`, local packaging/QA work folders, prior ZIPs and tarballs, and the redundant `assets.7z` are excluded. No credentials are required. The project has no server-side submission or lead-storage backend, CRM, analytics, newsletter, payment, or upload service; documentation does not claim these exist.
+For a future ZIP release, exclude `node_modules`, `.git`, `.env`, credentials, temporary staging folders, previous archives and intermediate `.7z`/`.tar.gz` files. `.env.example` is safe to include. Do not describe an archive as current until it is recreated from this branch and tested after clean extraction.
