@@ -14,8 +14,9 @@ const js=await readFile('dist/assets/site.js','utf8');
 for(const m of css.matchAll(/url\(['"]?(\/[^)'" ]+)/g)){try{await stat(path.join(root,m[1]));}catch{errors.push('CSS: missing '+m[1]);}}
 const home=textByFile.get(path.join(root,'index.html'));
 if((home.match(/data-fragment=/g)||[]).length!==48)errors.push('Film must have 48 persistent fragments');
+if(!home.includes('<div class="hero-person"><img src="/assets/syful-hoque-portrait.jpg"')||!home.includes('alt="Portrait of Mohammad Syful Hoque"'))errors.push('Owner portrait must be bundled and described in the hero');
 if((home.match(/data-scene="/g)||[]).length!==6)errors.push('Film must have six DOM captions');
-if(!css.includes('.film:not(.is-enhanced)')||!css.includes('prefers-reduced-motion:reduce'))errors.push('Static/reduced-motion fallback missing');
+if(!css.includes('.film:not(.is-enhanced) .film-caption{position:relative')||!css.includes('.film:not(.is-enhanced) .film-visual,.film:not(.is-enhanced) .film-rail{display:none!important}')||!css.includes('prefers-reduced-motion:reduce'))errors.push('Static/reduced-motion fallback missing');
 if(!js.includes("pin:$('.film-sticky',film),pinSpacing:false")||!js.includes("trigger:film")||!js.includes('scrub:1.15'))errors.push('GSAP film pin/scrub choreography missing');
 if(!js.includes("film.classList.add('is-enhanced','gsap-enhanced')"))errors.push('GSAP film must bypass static presentation styles');
 if(!js.includes('Math.min(1,(index+.08)/tl.duration())'))errors.push('GSAP scene rail must navigate across the complete timeline');
@@ -38,6 +39,6 @@ const contact=textByFile.get(path.join(root,'work-with-me','index.html'));
 if(!contact.includes('id="prepare-brief" disabled')||!contact.includes('class="brief-form" inert'))errors.push('Form must fail closed before JS initializes');
 if(!contact.includes('<noscript>'))errors.push('No-JS contact route missing');
 const manifest=JSON.parse(await readFile('.openai/hosting.json','utf8'));if(!manifest.project_id||manifest.static.directory!=='dist')errors.push('Invalid Sites manifest');
-const img=await stat('dist/assets/evidence-sculpture.webp');if(img.size>350000)errors.push('Hero asset exceeds budget');
+const img=await stat('dist/assets/evidence-sculpture.webp');if(img.size>350000)errors.push('Hero artwork exceeds budget');const portrait=await stat('dist/assets/syful-hoque-portrait.jpg');if(portrait.size>2000000)errors.push('Owner portrait exceeds 2 MB budget');
 if(errors.length){console.error(errors.join('\n'));process.exit(1);}
 console.log(JSON.stringify({passed:true,pages:htmlFiles.length,internal_links:links,asset_references:assets,hero_bytes:img.size,total_public_bytes:(await Promise.all(files.map(async f=>(await stat(f)).size))).reduce((a,b)=>a+b,0),checks:['routes and anchors','asset closure','metadata and landmarks','48-node/6-caption GSAP pin/scrub film','3D fragment transforms','accessible caption state','live reduced-motion/viewport preference teardown','independent hero camera drift','procurement persona and disclosure routes','quality and risk boundary page','local privacy-safe conversion events','static and reduced-motion fallback','fail-closed enquiry form','unsupported claims and placeholders','hosting manifest']},null,2));

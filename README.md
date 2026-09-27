@@ -1,8 +1,8 @@
 # Syful Hoque — Evidence to Systems
 
-Portable source export refreshed 28 September 2026 from the current editable website project.
+Updated 28 September 2026 on the isolated sunset-immersive-portfolio branch of the editable source repository.
 
-This is the current standalone source project, not a scrape of the hosted pages and not a repackaging of an earlier export. It contains the source record, templates, styles, scripts, local assets and generated static site (46 sitemap routes plus the 404 document).
+This branch adds an original Sunset-informed visual system across the portfolio, uses a portrait supplied by Mohammad Syful Hoque locally in the hero, and retains the GSAP/ScrollTrigger film. The reference informed visual and engineering techniques; its brand, copy and assets were not copied. This source tree is the current version. Any ZIP already in the repository is a prior baseline and does not include these branch changes.
 
 ## Requirements and commands
 
@@ -23,7 +23,7 @@ Open `http://127.0.0.1:4173/`. `npm run dev` rebuilds and starts the local serve
 - `build.mjs`: generates the site from the content record, templates and local resources.
 - `content/portfolio.json`: editable structured portfolio source.
 - `src/site.css` and `src/site.js`: responsive site design and browser behavior.
-- `assets/`: self-hosted artwork, fonts, font licenses, GSAP and ScrollTrigger.
+- `assets/`: self-hosted artwork, owner portrait, fonts, font licenses, GSAP and ScrollTrigger.
 - `dist/`: generated site output, included for immediate review and deployment.
 - `server.mjs` and `verify.mjs`: local preview server and route, asset, accessibility and cinematic-motion checks.
 - `pod/`: evidence, asset, dependency, deployment and handoff notes.
@@ -31,7 +31,7 @@ Open `http://127.0.0.1:4173/`. `npm run dev` rebuilds and starts the local serve
 
 ## Cinematic motion and accessibility
 
-The homepage film pins during the scroll sequence. One persistent set of 48 fragments moves through six 3D arrangements, scene captions crossfade, the scene rail navigates the sequence, and the hero image has its own independent camera drift. GSAP and ScrollTrigger are bundled locally. Motion preference and viewport changes tear down or rebuild the animated tier; reduced-motion, small-screen and script-unavailable users receive a static presentation and ordinary page scrolling. The current caption is the only animated caption exposed to assistive technology.
+The homepage film pins during the scroll sequence. One persistent set of 48 fragments moves through six 3D arrangements, scene captions crossfade, the scene rail navigates the sequence, and the hero image has its own independent camera drift. GSAP and ScrollTrigger are bundled locally. Motion preference and viewport changes tear down or rebuild the animated tier. Reduced-motion, small-screen and script-unavailable users receive all six captions and diagrams in a static reading layout with ordinary page scrolling. The current animated caption is the only one exposed to assistive technology.
 
 ## Institutional buyer readiness
 

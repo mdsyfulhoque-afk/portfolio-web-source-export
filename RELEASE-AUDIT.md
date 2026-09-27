@@ -1,6 +1,6 @@
 # Release audit
 
-Audit target: fresh `website-source-export.zip`, assembled on 2026-09-28 from the current editable website project. The previous archive was used only as a packaging and audit reference. Verification was run after extracting the candidate archive into a new clean folder.
+Historical archive target: website-source-export.zip, assembled on 2026-09-28 from the editable website baseline. The release-gate table below records that archive only; current-branch checks are recorded separately.
 
 ## Release gates
 
@@ -31,3 +31,11 @@ Audit target: fresh `website-source-export.zip`, assembled on 2026-09-28 from th
 ## Disposition
 
 Portable editable static-site export. The fresh archive extraction passed dependency installation, build, project checks, local route and asset serving, and portability scans. The generated `dist/` directory is ready for a static host; the repository remains editable and rebuildable with Node.js.
+
+## Current branch verification
+
+- Branch: sunset-immersive-portfolio; built from the editable source repository.
+- Updated source and documentation: build.mjs, server.mjs, src/site.css, verify.mjs, README, portability and audit notes, and assets/syful-hoque-portrait.jpg.
+- The branch build and project checker pass after generating all 46 routes; 47 HTML documents, 1,433 internal links and local asset references are checked.
+- The check explicitly validates the local portrait and the no-motion layout that exposes every film caption and diagram.
+- A fresh archive-extraction audit is pending; this document does not claim that the prior ZIP contains the branch revision.

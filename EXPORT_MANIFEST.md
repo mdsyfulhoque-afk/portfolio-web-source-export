@@ -1,8 +1,10 @@
 # Export manifest
 
+> Scope: the existing ZIP and inventory below describe the earlier packaged baseline. The sunset-immersive-portfolio branch now includes additional source changes and a local owner portrait; the old ZIP does not contain them. No new archive is claimed in this branch update.
+
 - Archive filename: `website-source-export.zip`
 - Export date: 2026-09-28
-- Source of truth: current editable `syful-hoque-site` working tree, based on revision `369656ad7764fbceaca20fb0a5d8e9983b1b9009` with current local release-document and package metadata updates
+- Baseline source packaged: revision 369656ad7764fbceaca20fb0a5d8e9983b1b9009. The current branch contains further source changes not present in that archive.
 - Package type: portable, editable Node.js static-site repository plus generated `dist/`
 - Archive layout: project files at the ZIP root; only relative paths are used
 
