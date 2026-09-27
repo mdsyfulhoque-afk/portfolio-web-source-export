@@ -1,31 +1,32 @@
 # Portability
 
-This repository runs independently of ChatGPT Sites. It is a static Node.js website with no runtime database, API, CMS, analytics, authentication, upload service or secret requirement.
+This editable static-site project builds with Node.js built-in modules and runs independently of ChatGPT or the original Sites host. It requires no account session, database, API key or network download to render the website.
 
-## Run locally
+The current build produces 46 sitemap routes plus a 404 document, including buyer-specific procurement information and a quality-and-risk approach. The homepage’s GSAP film and hero drift use local libraries and honor changes to reduced-motion and viewport preferences while the page is open.
 
-Requirements: Node.js 22 or newer. The project has no third-party npm dependencies, so `npm install` is optional.
+## Clean setup
+
+Requirements: Node.js 22.9+ and npm 11.16.0. From the repository root:
 
 ```sh
+npm ci
 npm run build
 npm run check
 npm run start
 ```
 
-Open `http://127.0.0.1:4173/`.
+Visit `http://127.0.0.1:4173/`. The npm dependency graph is intentionally empty, so `npm ci` installs no third-party packages. `npm run dev` rebuilds before starting the preview server.
 
-To change canonical URLs for another deployment, set `SITE_ORIGIN` before building. The value is used only for canonical links, sitemap URLs and structured data.
+## Hosting
 
-## Deploy to Vercel
+Run `npm run build`, then publish `dist/` to a static host. The included `vercel.json` configures the build command and output directory. Set optional build-time `SITE_ORIGIN` to the public HTTPS origin if the production domain differs from the default. `.env.example` documents this setting; the project does not load `.env` automatically.
 
-Import the repository, keep the detected Node project settings, and deploy. `vercel.json` sets `npm run build` and `dist` as the output directory. No environment variable is required for the page to render; set `SITE_ORIGIN` to the deployed domain before a production build when canonical metadata should use that domain.
+## Runtime assets and integrations
 
-## What is platform-specific
+Images, fonts, font licenses, GSAP and ScrollTrigger are local under `assets/`; the browser does not download required application assets from a CDN. The optional `document.modelContext.registerTool` integration is guarded and only registers a helper if a compatible host provides that API. It does not submit or store an enquiry; the regular form works without it. `.openai/hosting.json` is retained only as inert metadata and is not read by the standalone application.
 
-`.openai/hosting.json` is retained as historical Sites metadata. It is not read by the website runtime and is not required by Vercel, Netlify or the local server. The original private Sites URL is retained as the default canonical origin until `SITE_ORIGIN` is overridden.
+The site dispatches a small set of local `site:measurement` browser events to support a future analytics integration. They contain page path, enquiry service or handoff channel only; they do not include visitor-entered fields, persist data or make network requests. No analytics provider is configured. `MEASUREMENT-PLAN.md` documents the activation boundary and KPI cadence.
 
-The project-brief form prepares text for the visitor to review and hand off through email or WhatsApp. It does not send data to a hidden ChatGPT service.
+## Not included
 
-## What is not present
-
-There is no exported backend, database, private API, payment flow, CRM, email automation or analytics account because none was configured in the original site. Those services can be added later without changing the static page build.
+There is no backend, database, secret, private API, analytics account, CRM, newsletter service, payment system, file upload service or server-side lead submission. The site prepares a visitor-reviewed enquiry handoff, not a booking or submission. The original hosted edition's access rules are outside this portable project.

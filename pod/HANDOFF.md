@@ -4,7 +4,7 @@ Version 1.0.0 · 16 September 2026
 
 ## Delivered
 
-The complete 45-page site, original editorial hero, six-scene CSS 3D decision journey, 28 detailed assignment pages, filterable index, four practice pages, four-offer commercial ladder, ProposalDesk scope selection, three practical method guides, public professional profile, intent-based enquiry preparation and privacy page.
+The complete 47-document static site (46 routes plus 404), original editorial hero, GSAP/ScrollTrigger six-scene decision journey with responsive motion teardown, 28 detailed assignment pages, filterable index, four practice pages, four-offer commercial ladder, ProposalDesk scope selection, three practical method guides, public professional profile, intent-based enquiry preparation, procurement persona and vendor-information page, quality-and-risk route, and privacy page.
 
 All five supplied source categories informed the build. Publication copy distinguishes professional scope from impact and live service from proposed offers. Original files remain untouched in the parent workspace. The application source and all assets are included here.
 

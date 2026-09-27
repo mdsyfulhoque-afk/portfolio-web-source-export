@@ -1,27 +1,21 @@
 # Export manifest
 
-Export name: `website-source-export.zip`  
-Export date: 2026-09-17  
-Project: Syful Hoque — Evidence to Systems  
-Classification: portable standalone source export
+- Archive filename: `website-source-export.zip`
+- Export date: 2026-09-28
+- Source of truth: current editable `syful-hoque-site` working tree, based on revision `369656ad7764fbceaca20fb0a5d8e9983b1b9009` with current local release-document and package metadata updates
+- Package type: portable, editable Node.js static-site repository plus generated `dist/`
+- Archive layout: project files at the ZIP root; only relative paths are used
 
-## Runtime
-
-- Architecture: generated static HTML, CSS and browser JavaScript
-- Build runtime: Node.js 22+
-- Package manager: npm-compatible; no third-party dependencies
-- Source of truth: `build.mjs`, `content/portfolio.json`, `src/`, `assets/`
-- Public output: `dist/`
-
-## Tree
+## Included repository layout
 
 ```text
 .
 ├── .env.example
 ├── .gitignore
 ├── .nvmrc
-├── .openai/hosting.json              # optional historical hosting metadata
+├── .openai/hosting.json              # inert source-host metadata; not a runtime requirement
 ├── EXPORT_MANIFEST.md
+├── MEASUREMENT-PLAN.md
 ├── PORTABILITY.md
 ├── README.md
 ├── RELEASE-AUDIT.md
@@ -29,33 +23,37 @@ Classification: portable standalone source export
 ├── build.mjs
 ├── content/portfolio.json
 ├── package.json
-├── pod/                               # source audit, decisions and handoff records
-├── prepare-fonts.mjs
+├── package-lock.json
+├── pod/                               # evidence, provenance, assets and handoff notes
+├── prepare-fonts.mjs                  # optional maintenance script
 ├── server.mjs
 ├── src/site.css
 ├── src/site.js
 ├── vercel.json
 ├── verify.mjs
-├── assets/                            # source image, fonts and licenses
-└── dist/                              # validated 45-page public build
+├── assets/                            # local fonts, licenses, artwork, GSAP and ScrollTrigger
+└── dist/                              # generated 46 sitemap routes plus 404 and local assets
 ```
 
-## Included assets
+The ZIP's file listing is the exact inventory. `node_modules`, `.git`, nested exports, staging directories and intermediate `.7z`/`.tar.gz` archives are excluded.
 
-The export contains the original editorial WebP artwork, its PNG source, Fraunces regular and italic variable WOFF2 subsets, Inter variable WOFF2, IBM Plex Mono WOFF2, the three corresponding license files, favicon, profile text, sitemap, security headers and all generated HTML/CSS/JS assets.
+## Runtime and package inventory
 
-## Dependencies
+- Node.js >=22.9; `.nvmrc` specifies Node 22. The clean-extraction audit used Node.js 24.16.0.
+- npm 11.16.0; npm lockfile version 3.
+- Third-party npm dependencies: none. The browser-side GSAP and ScrollTrigger files are included locally in `assets/`.
+- Environment: optional build-time `SITE_ORIGIN`; no secret values or runtime secrets.
+- Required external services for rendering: none. Required fonts, images and animation libraries are local.
+- Measurement: the browser dispatches non-persistent local conversion events only; no analytics provider or transmission is configured.
 
-There are no runtime or development package dependencies. `package-lock.json` is included and records the empty npm dependency graph; Node's built-in `fs`, `path` and `http` modules are sufficient.
+## Assets
 
-## Environment variables
+`assets/` includes the locally served hero artwork, Fraunces, Inter and IBM Plex Mono WOFF2 files and their license files, plus `gsap.min.js` and `ScrollTrigger.min.js`. `pod/evidence-sculpture-source.png` records the original image source. Generated `dist/` contains the referenced styles, scripts, images, fonts, route HTML and metadata. Site icons and the concise profile text are generated locally.
 
-`SITE_ORIGIN` is optional and build-time only. It controls canonical URLs, sitemap URLs and structured data. No secret, API key, database URL or credential is used.
+## Portability boundary
 
-## External services
+The optional `.openai/hosting.json` is inert hosting metadata, not an application dependency. The optional `document.modelContext` hook is feature-detected and guarded; without a compatible host, the ordinary browser enquiry preparation still works. There are no ChatGPT-only APIs required to build or render the standalone site. Local measurement events are ordinary browser `CustomEvent`s and send nothing to a network service.
 
-None are required to run the export. The retained `.openai/hosting.json` is metadata for the original Sites deployment only.
+## Exclusions and limitations
 
-## Replaced, mocked or unavailable
-
-Nothing in the page UI was mocked. The original hosting platform itself is not portable and is documented rather than required. There is no backend to export. The local enquiry flow intentionally remains a review-and-handoff flow; it does not pretend to have a server-side submission system.
+Secrets, `.env`, `node_modules`, `.git`, local packaging/QA work folders, prior ZIPs and tarballs, and the redundant `assets.7z` are excluded. No credentials are required. The project has no server-side submission or lead-storage backend, CRM, analytics, newsletter, payment, or upload service; documentation does not claim these exist.

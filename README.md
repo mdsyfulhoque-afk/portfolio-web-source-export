@@ -1,43 +1,62 @@
 # Syful Hoque — Evidence to Systems
 
-Version 1.0.0 · 16 September 2026
+Portable source export refreshed 28 September 2026 from the current editable website project.
 
-A complete, portable editorial and commercial website. The production source is this directory. The supplied Claude design export remains preserved separately in the parent workspace.
+This is the current standalone source project, not a scrape of the hosted pages and not a repackaging of an earlier export. It contains the source record, templates, styles, scripts, local assets and generated static site (46 sitemap routes plus the 404 document).
 
-## Run
+## Requirements and commands
 
-Requires Node.js 22 or newer; verified with Node 24.16.0. There are no application package dependencies and no installation step.
+- Node.js 22.9 or newer (the current release audit used Node.js 24.16.0)
+- npm 11.16.0 (current audit; no third-party npm packages are required)
 
 ```sh
-node build.mjs
-node verify.mjs
-node server.mjs
+npm ci
+npm run build
+npm run check
+npm run start
 ```
 
-Open the printed local URL. `dist/` is the complete public website and can be hosted by a static web server. `build.mjs` compiles real HTML pages from the source record; every route works directly without client-side routing.
+Open `http://127.0.0.1:4173/`. `npm run dev` rebuilds and starts the local server. The generated `dist/` directory can also be deployed to a static host.
 
-## Contents
+## Project map
 
-- 45 HTML pages, including 28 detailed assignments, four practices, products, ProposalDesk, three original method guides, about, enquiry, privacy and 404.
-- A shared-node, six-scene CSS 3D Decision Flow; static diagrams on mobile, short screens, reduced motion or script failure.
-- A native project-brief form with a review step and explicit email/WhatsApp handoff. No database or silent submission.
-- Self-hosted typography, a 66 KB original WebP hero, accessible landmarks and progressive enhancement.
-- Private Sites hosting metadata in `.openai/hosting.json`.
+- `build.mjs`: generates the site from the content record, templates and local resources.
+- `content/portfolio.json`: editable structured portfolio source.
+- `src/site.css` and `src/site.js`: responsive site design and browser behavior.
+- `assets/`: self-hosted artwork, fonts, font licenses, GSAP and ScrollTrigger.
+- `dist/`: generated site output, included for immediate review and deployment.
+- `server.mjs` and `verify.mjs`: local preview server and route, asset, accessibility and cinematic-motion checks.
+- `pod/`: evidence, asset, dependency, deployment and handoff notes.
+- `vercel.json`: Vercel static deployment settings.
 
-## Editing
+## Cinematic motion and accessibility
 
-Content: `content/portfolio.json` retains the imported reference. `build.mjs` contains publication-specific qualification, date treatment, page content and metadata. Styles: `src/site.css`. Behaviour: `src/site.js`. Assets: `assets/`. Build output: `dist/`.
+The homepage film pins during the scroll sequence. One persistent set of 48 fragments moves through six 3D arrangements, scene captions crossfade, the scene rail navigates the sequence, and the hero image has its own independent camera drift. GSAP and ScrollTrigger are bundled locally. Motion preference and viewport changes tear down or rebuild the animated tier; reduced-motion, small-screen and script-unavailable users receive a static presentation and ordinary page scrolling. The current caption is the only animated caption exposed to assistive technology.
 
-After edits, build and verify. The checked-in public assets let the site reconstruct without downloading fonts or using an image generator. `prepare-fonts.mjs` is optional maintenance tooling, not a build dependency.
+## Institutional buyer readiness
 
-## Portable deployment
+The site now includes a procurement and vendor-information route with four buyer personas, a checklist for procurement enquiries and explicit disclosure that roster status must be confirmed per opportunity. A separate quality and risk route describes engagement-level review steps, confidentiality boundaries, conflict handling and scope limits without claiming accreditation or independent audit. The homepage links buyers directly to both routes.
 
-This repository is independent of ChatGPT Sites. Run `npm run build` and deploy `dist/` to any static host. Vercel can use the included `vercel.json`; Netlify can use `npm run build` with `dist` as the publish directory. Set the optional `SITE_ORIGIN` build variable to the deployed domain when canonical metadata should change.
+## Measurement boundary
 
-`EXPORT_MANIFEST.md`, `PORTABILITY.md` and `RELEASE-AUDIT.md` document the source export, platform boundary and release checks. `package-lock.json` is included even though the project has no third-party dependencies.
+The browser emits local `site:measurement` events for enquiry calls to action, prepared briefs and email/WhatsApp handoffs. These events do not include form content and are not transmitted or stored. No GA4, Search Console integration, CRM, cookie banner or nurture service is active. See `MEASUREMENT-PLAN.md` before connecting any analytics or follow-up provider.
 
-## Limits
+## Editing content
 
-The hosting edition is private. This is a functioning professional website, not proof of commercial revenue or a guarantee of proposal awards. No checkout, analytics, CRM, newsletter subscription, file upload or backend lead storage is configured. The site states these behaviours honestly.
+Edit `content/portfolio.json` and the relevant templates, styles or scripts, then run `npm run build` and `npm run check`. `prepare-fonts.mjs` is optional maintenance tooling; it is not needed to install, build, run or deploy the site.
 
-See `pod/HANDOFF.md`, `pod/SOURCE-AUDIT.md` and `pod/DECISIONS.md` for unresolved source dates, offer status, validation and deployment details.
+## Environment
+
+No environment variable is required. Optional build-time `SITE_ORIGIN` sets canonical, sitemap and structured-data URLs for a deployment domain. `.env.example` documents the value; there is no dotenv dependency and `.env` is not loaded automatically.
+
+## Deploy
+
+For Vercel, import the repository and use the included configuration: build command `npm run build`, output directory `dist`. For another static host, build and publish `dist/`. Set `SITE_ORIGIN` before the build when the deployed canonical domain differs from the default site URL.
+
+The optional `.openai/hosting.json` is preserved as original hosting metadata; the standalone website does not read or require it. The guarded `document.modelContext` helper is an optional host integration; the visitor-operated enquiry flow works without it.
+
+## Services and limitations
+
+The project has no backend, database, active analytics, CRM, email automation, payment or upload service. The enquiry form prepares a message for the visitor to review and hand off; it does not send or store a lead. The original hosted edition may have account-level access restrictions; this export runs independently on local Node or a conventional static host.
+
+See `PORTABILITY.md`, `EXPORT_MANIFEST.md` and `RELEASE-AUDIT.md` for portability details, archive inventory and clean-extraction results.
