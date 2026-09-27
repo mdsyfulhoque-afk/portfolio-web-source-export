@@ -21,6 +21,7 @@
 | Data integrity | PASS | Public pages retain source qualifications; capability/sector taxonomy is separate; pilot offers remain labelled; procurement and risk routes avoid unverified registration/accreditation claims. |
 | External runtime dependency | PASS | No required external runtime assets or API connections; optional host-specific metadata/helper is guarded and documented. |
 | Secrets | PASS | No secret is required. `.env.example` contains only an optional site-origin placeholder. |
+| Production deployment | PASS | Vercel deployment `dpl_CDHmaUfapDQnWuwgwR2B9QNUBhtY` is `READY` and aliased to `https://syful-hoque-evidence-systems.vercel.app/`. All 52 sitemap routes returned HTTP 200; homepage, About, capability page, site script and hero image also returned HTTP 200. A nonexistent path returned HTTP 404. |
 
 ## Not represented as verified
 
@@ -33,4 +34,4 @@
 
 ## Current disposition
 
-The current source branch builds and passes its project checks. It is ready for the separate-branch review and deployment workflow; the previous source ZIP remains unchanged and is not this revision's handoff artifact.
+The current source branch builds and passes its project checks, is pushed to GitHub, and is deployed to the requested Vercel production project. The Claude-built site remains on its original branch. The previous source ZIP remains unchanged and is not this revision's handoff artifact.

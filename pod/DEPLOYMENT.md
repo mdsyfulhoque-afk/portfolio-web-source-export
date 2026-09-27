@@ -8,6 +8,8 @@ The portfolio redesign is on `sunset-immersive-portfolio`, an independent branch
 
 The repository is linked locally to the Vercel project `syful-hoque-evidence-systems`; `vercel.json` builds the static `dist/` output. Before production promotion, run `npm ci`, `npm run build` and `npm run check`. Use the authenticated Vercel CLI or the connected Git deployment for this repository and verify the final production URL and deployment status afterward. `.vercel/` project state is local/ignored; no Vercel credential belongs in the repository.
 
+Current production release: deployment `dpl_CDHmaUfapDQnWuwgwR2B9QNUBhtY`, `READY`, aliased at [https://syful-hoque-evidence-systems.vercel.app/](https://syful-hoque-evidence-systems.vercel.app/). The sitemap's 52 routes and sampled local assets returned HTTP 200.
+
 For a static host, build and publish `dist/`, support directory index files and configure `404.html` as the not-found document. Apply the security and caching headers in `dist/_headers` where the host supports that format. Set `SITE_ORIGIN` at build time if canonical URLs should use another production origin.
 
 ## Rollback

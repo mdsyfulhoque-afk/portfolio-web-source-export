@@ -4,6 +4,8 @@ Updated 28 September 2026 on the isolated `sunset-immersive-portfolio` branch of
 
 This revision uses the supplied portfolio archive as its design foundation and carries the Evidence System art direction through the complete site: cool-paper surfaces, a strong 12-column editorial grid, evidence-blue and red-markup accents, appraisal-table details, a reference bar, and self-hosted Latin/Bangla type. A large local portrait opens the homepage; verified field and meeting photographs, sourced figures, and data exhibits anchor the case for the work. The six-scene GSAP/ScrollTrigger film remains a true pinned 3D scroll sequence with 48 fragments, changing camera angles, evidence plates, and scene captions. The existing assignment record and offer wording remain governed by the project evidence audit. Existing ZIPs are earlier baselines; they do not include this revision.
 
+Live site: [syful-hoque-evidence-systems.vercel.app](https://syful-hoque-evidence-systems.vercel.app/)
+
 ## Requirements and commands
 
 - Node.js 22.9 or newer (the current release audit used Node.js 24.16.0)
